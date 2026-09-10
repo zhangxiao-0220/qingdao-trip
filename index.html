@@ -28,9 +28,9 @@
   --brand:#0e7c9c; --brand2:#f0a03c; --line:#dcebf0; --danger:#d2694a; --radius:16px;
 }
 *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
-html,body{height:100%}
-body{font-family:-apple-system,"PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif;background:var(--bg);color:var(--ink);line-height:1.55;padding-bottom:calc(82px + env(safe-area-inset-bottom));-webkit-font-smoothing:antialiased}
-.app{max-width:600px;margin:0 auto;padding:14px 13px 0}
+html{height:100%}
+body{font-family:-apple-system,"PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif;background:var(--bg);color:var(--ink);line-height:1.55;padding-bottom:0;min-height:100%;-webkit-font-smoothing:antialiased}
+.app{max-width:600px;margin:0 auto;padding:14px 13px calc(120px + env(safe-area-inset-bottom))}
 header{display:flex;align-items:center;justify-content:space-between;padding:6px 2px 12px}
 .brand{display:flex;align-items:center;gap:9px}
 .logo{width:38px;height:38px;border-radius:11px;background:linear-gradient(135deg,#0e7c9c,#4fc3d9);display:flex;align-items:center;justify-content:center;font-size:19px;color:#fff;flex:none}
