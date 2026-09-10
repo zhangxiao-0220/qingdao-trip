@@ -1,0 +1,499 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#0e7c9c">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<title>泰国双城记 · 迷你版</title>
+<style>
+:root{
+  --bg:#f1f8fa; --card:#fff; --ink:#12333f; --dim:#5f7b86;
+  --brand:#0e7c9c; --brand2:#f0a03c; --line:#dcebf0; --danger:#d2694a; --radius:16px;
+}
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+html,body{height:100%}
+body{font-family:-apple-system,"PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif;background:var(--bg);color:var(--ink);line-height:1.55;padding-bottom:calc(82px + env(safe-area-inset-bottom));-webkit-font-smoothing:antialiased}
+.app{max-width:600px;margin:0 auto;padding:14px 13px 0}
+header{display:flex;align-items:center;justify-content:space-between;padding:6px 2px 12px}
+.brand{display:flex;align-items:center;gap:9px}
+.logo{width:38px;height:38px;border-radius:11px;background:linear-gradient(135deg,#0e7c9c,#4fc3d9);display:flex;align-items:center;justify-content:center;font-size:19px;color:#fff;flex:none}
+.brand h1{font-size:16px;line-height:1.2}
+.brand p{font-size:11px;color:var(--dim)}
+.pill{background:#fff;border:1px solid var(--line);border-radius:999px;font-size:11px;color:var(--dim);padding:5px 10px;white-space:nowrap}
+.hero{background:linear-gradient(130deg,#0e7c9c,#57c6dd);border-radius:20px;padding:17px;color:#fff;margin-bottom:12px;box-shadow:0 10px 24px rgba(14,124,156,.18)}
+.hero h2{font-size:19px;line-height:1.35;font-weight:800}
+.hero p{font-size:12.5px;opacity:.9;margin-top:4px}
+.quick{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:12px}
+.quick a,.quick button{display:flex;align-items:center;justify-content:center;gap:6px;background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.35);color:#fff;border-radius:12px;padding:9px 6px;font-size:12.5px;font-weight:700;text-decoration:none;cursor:pointer}
+.section{display:flex;align-items:baseline;justify-content:space-between;gap:10px;margin:15px 0 8px}
+.section h3{font-size:16px}
+.section span{font-size:11px;color:var(--dim)}
+.daystrip{display:flex;gap:7px;overflow-x:auto;padding:2px 2px 8px;scrollbar-width:none}
+.daystrip::-webkit-scrollbar{display:none}
+.daychip{flex:none;width:62px;border:1px solid var(--line);background:#fff;border-radius:14px;padding:8px 4px;text-align:center;cursor:pointer}
+.daychip .d{font-size:10.5px;color:var(--dim)}
+.daychip .n{font-size:17px;font-weight:800;margin-top:2px}
+.daychip small{display:block;font-size:9.5px;color:#93a09b}
+.daychip.on{background:var(--brand);border-color:var(--brand);color:#fff}
+.daychip.on .d,.daychip.on small{color:rgba(255,255,255,.82)}
+.daychip.on .n{color:#fff}
+.card{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:13px 14px;margin-bottom:10px}
+.day-head{display:flex;justify-content:space-between;align-items:flex-start;gap:8px;margin-bottom:10px}
+.day-head h2{font-size:16.5px;line-height:1.35}
+.day-head .tag{flex:none;font-size:10.5px;color:#0b6b4c;background:#e2f2ea;border-radius:999px;padding:3px 8px;margin-top:3px}
+.tipbox{background:#fff8e9;border:1px solid #f3e2bc;border-radius:12px;padding:8px 11px;margin-bottom:8px}
+.tipbox p{font-size:12px;color:#7a6231;margin:3px 0;display:flex;gap:5px}
+.tipbox p::before{content:"•";color:#d99b2b}
+.item{display:flex;gap:10px;padding:11px 0;border-bottom:1px solid var(--line)}
+.item:last-child{border-bottom:none}
+.item .t{flex:none;font-size:10.5px;font-weight:800;color:var(--brand);background:#e7f3ee;border-radius:9px;padding:4px 6px;height:fit-content;min-width:52px;text-align:center}
+.item .body{flex:1;min-width:0}
+.item .nm{font-weight:800;font-size:14.5px;line-height:1.3}
+.item .rv{font-size:12.2px;color:#52615c;margin-top:3px}
+.item .meta{display:flex;flex-wrap:wrap;gap:5px;margin-top:6px}
+.chip{font-size:10.5px;background:#f0f4f1;color:#5b6c65;border-radius:999px;padding:2px 8px;white-space:nowrap}
+.chip.book{background:#fdeadd;color:#b0471f}
+.actrow{display:flex;gap:8px;margin-top:10px}
+.btn{flex:1;display:flex;align-items:center;justify-content:center;gap:6px;border-radius:12px;padding:10px 8px;font-size:13.5px;font-weight:700;border:none;cursor:pointer;text-decoration:none;background:#eef4f0;color:#0d5d47}
+.btn.primary{background:var(--brand);color:#fff}
+.btn.gold{background:#fff3dd;color:#9a6500}
+.dining{background:#fbf8ef;border-radius:12px;padding:9px 11px;margin-top:8px}
+.dining h4{font-size:12px;color:#9a6500}
+.meal{display:flex;justify-content:space-between;gap:8px;font-size:12px;color:#42524b;padding-top:3px}
+.meal b{color:#b0471f;white-space:nowrap;font-weight:600}
+.foot-note{margin-top:16px;text-align:center;font-size:11px;color:#97a59f;line-height:1.7}
+.tabbar{position:fixed;left:0;right:0;bottom:0;z-index:40;background:rgba(255,255,255,.97);backdrop-filter:blur(12px);border-top:1px solid var(--line);padding:6px 6px calc(6px + env(safe-area-inset-bottom));display:flex;max-width:640px;margin:0 auto}
+.tabbar button{flex:1;border:none;background:none;padding:6px 2px;font-size:9.5px;color:#8a9891;display:flex;flex-direction:column;align-items:center;gap:2px;border-radius:12px;cursor:pointer}
+.tabbar button .ic{font-size:18px;line-height:1}
+.tabbar button.on{color:var(--brand);font-weight:700}
+.panel{display:none}
+.panel.on{display:block}
+.daycard-head{display:flex;justify-content:space-between;gap:8px;align-items:center;margin-bottom:5px}
+.daycard-head b{font-size:15px}
+.gobtn{flex:none;border:none;background:#e7f3ee;color:#0b6b4c;font-size:11px;font-weight:700;border-radius:999px;padding:5px 10px;cursor:pointer}
+.mealrow{border:1px solid #efe8d2;background:#fffdf7;border-radius:13px;padding:10px 12px;margin-bottom:8px}
+.mealrow .mt{font-size:11px;color:#9a6500;font-weight:800}
+.mealrow .pl{font-weight:700;font-size:14px;margin-top:2px}
+.mealrow .hs{font-size:11px;color:var(--dim);margin:1px 0 5px}
+.dish{display:flex;justify-content:space-between;gap:10px;font-size:12.2px;color:#42524b;padding:2px 0}
+.dish b{color:#b0471f;white-space:nowrap;font-weight:600}
+.foodopt{border-top:1px dashed #ead9ad;padding:8px 0 4px}
+.foodopt:first-of-type{border-top:none}
+.foodopt .pl{font-size:13.5px}
+.foodopt .note{font-size:11.5px;color:#7b8a82;margin:2px 0 4px}
+.slotphoto{position:relative;height:150px;border-radius:12px;overflow:hidden;background:linear-gradient(135deg,#2ca381,#0f6b52);margin:8px 0 4px}
+.slotphoto img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block}
+.pguide{margin-top:6px;border-top:1px dashed var(--line);padding-top:6px}
+.pguide summary{cursor:pointer;font-size:12px;color:#0b6b4c;font-weight:700}
+.pgin{font-size:11.8px;color:#5a6a63;padding-top:5px}
+.chiprow{display:flex;flex-wrap:wrap;gap:6px;margin-top:6px}
+.geobar{display:flex;gap:7px;align-items:center;background:#e9f6fa;border:1px solid #cfe9f2;border-radius:14px;padding:8px 10px;margin-bottom:11px;flex-wrap:wrap}
+.geobar button{border:none;background:var(--brand);color:#fff;border-radius:10px;padding:7px 10px;font-size:12px;font-weight:700;cursor:pointer}
+.geobar button.alt{background:#fff;color:var(--brand);border:1px solid #bfe0ec}
+.geobar .st{font-size:11px;color:#4f6a7a;flex:1;min-width:120px}
+.distchip{background:#e7f4f8;color:#0b6b8c}
+.hotel-card{border-left:4px solid var(--brand)}
+.hotel-top{display:flex;justify-content:space-between;gap:8px;align-items:flex-start}
+.hotel-top b{font-size:15px;line-height:1.35}
+.hotel-date{font-size:10.5px;color:#fff;background:#0f6b52;border-radius:999px;padding:3px 9px;white-space:nowrap}
+.hotel-addr{font-size:11.5px;color:var(--dim);margin:5px 0 7px}
+.line-item{display:flex;gap:10px;align-items:flex-start;background:#fff;border:1px solid var(--line);border-radius:13px;padding:10px 12px;margin-bottom:7px}
+.line-item .ic{font-size:18px;flex:none;width:30px;text-align:center}
+.line-item b{font-size:13px}
+.line-item p{font-size:11.5px;color:#56665f;margin-top:2px}
+.check-group{background:#fff;border:1px solid var(--line);border-radius:15px;padding:12px 13px;margin-bottom:10px}
+.check-group h4{font-size:14px;display:flex;justify-content:space-between;align-items:center;gap:8px}
+.check-group h4 .cnt{font-size:11px;color:#6f7e78;font-weight:500}
+.bar{height:5px;border-radius:4px;background:#edf2ef;margin:7px 0 9px;overflow:hidden}
+.bar i{display:block;height:100%;background:var(--brand);border-radius:4px;width:0;transition:width .2s}
+.chk-item{display:flex;align-items:flex-start;gap:9px;padding:6px 0;font-size:12.8px}
+.chk-item input{width:17px;height:17px;accent-color:var(--brand);margin-top:2px;flex:none}
+.chk-item.done{color:#98a49f;text-decoration:line-through}
+.sheet{position:fixed;inset:0;background:rgba(20,35,30,.42);z-index:60;display:none;align-items:flex-end;justify-content:center}
+.sheet.on{display:flex}
+.sheet .box{background:#fff;border-radius:22px 22px 0 0;width:100%;max-width:600px;padding:16px 16px calc(16px + env(safe-area-inset-bottom))}
+.sheet .handle{width:38px;height:4px;background:#dfe6e2;border-radius:4px;margin:0 auto 12px}
+.sheet h3{font-size:17px;margin-bottom:3px}
+.sheet .sub{font-size:12px;color:var(--dim);margin-bottom:12px}
+.sheet .addr{background:#f3f7f4;border-radius:12px;padding:10px 12px;font-size:12.5px;color:#3d4d46;margin-bottom:12px;word-break:break-all;white-space:pre-wrap}
+.sheet .row{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.mini-note{font-size:11.5px;color:#8b9892;margin-top:10px;text-align:center}
+.listitem{display:flex;align-items:center;gap:10px;background:#fff;border:1px solid var(--line);border-radius:14px;padding:10px 13px;margin-bottom:8px}
+.listitem .txt{font-size:12.8px;flex:1}
+.listitem .deadline{font-size:11px;color:var(--danger);white-space:nowrap}
+.flight{border-left:4px solid var(--brand2)}
+.flight .note{font-size:11.3px;color:#85928c;margin-top:3px}
+@media (min-width:600px){ .tabbar{max-width:600px;left:50%;transform:translateX(-50%);border-radius:16px 16px 0 0} }
+</style>
+</head>
+<body>
+<div class="app">
+  <header>
+    <div class="brand">
+      <div class="logo">🌊</div>
+      <div><h1>青岛海边亲子 · 迷你版</h1><p id="app-dates"></p></div>
+    </div>
+    <span class="pill" id="app-count"></span>
+  </header>
+
+  <div class="geobar">
+    <button id="geo-btn">📍 开启实时距离</button>
+    <button id="geo-sort" class="alt" style="display:none">↕ 由近到远</button>
+    <span class="st" id="geo-status">未开启定位 · 开启后每个景点/饭店显示距你多远</span>
+  </div>
+
+  <div id="view-行程" class="panel on">
+    <div class="hero">
+      <h2 id="hero-day">点下面第几天开始浏览</h2>
+      <p id="hero-sub">每站可一键导航、打车；美食/酒店/交通/清单都在底部</p>
+      <div class="quick">
+        <button data-goto="美食">🍜 今天吃什么</button>
+        <button data-goto="出行">🚗 航班与交通</button>
+      </div>
+    </div>
+    <div id="day-root"></div>
+  </div>
+
+  <div id="view-美食" class="panel"></div>
+  <div id="view-酒店" class="panel"></div>
+  <div id="view-出行" class="panel"></div>
+  <div id="view-清单" class="panel"></div>
+</div>
+
+<nav class="tabbar">
+  <button data-tab="行程" class="on"><span class="ic">🗓</span>行程</button>
+  <button data-tab="美食"><span class="ic">🍜</span>美食</button>
+  <button data-tab="酒店"><span class="ic">🏨</span>酒店</button>
+  <button data-tab="出行"><span class="ic">🚗</span>出行</button>
+  <button data-tab="清单"><span class="ic">✅</span>清单</button>
+</nav>
+
+<div class="sheet" id="sheet-nav">
+  <div class="box">
+    <div class="handle"></div>
+    <h3 id="sheet-title">导航到此</h3>
+    <p class="sub">选择地图 App 打开；打车请复制定位后粘贴到 Grab。</p>
+    <div class="addr" id="sheet-addr"></div>
+    <div class="row">
+      <a class="btn primary" id="lnk-apple" target="_blank" rel="noopener">🍎 苹果地图</a>
+      <a class="btn primary" id="lnk-google" target="_blank" rel="noopener">🧭 谷歌地图</a>
+      <a class="btn primary" id="lnk-amap" target="_blank" rel="noopener">🗺 高德地图</a>
+      <button class="btn gold" id="btn-copy">📋 复制定位</button>
+      <a class="btn" href="https://www.grab.com" target="_blank" rel="noopener" style="grid-column:1/-1">🚕 打开 Grab（官网）</a>
+    </div>
+    <p class="mini-note">泰国打车通常用 Grab；复制定位后在 Grab 里粘贴地点即可叫车。</p>
+  </div>
+</div>
+
+<script id="trip-data" type="application/json">{"title":"青岛海边亲子 · 4 天 3 晚","subtitle":"2026.09.13–09.16 ｜ 3 人亲子自驾 ｜ 石老人 · 小麦岛 · 奥帆帆船 · 银沙滩","startDate":"2026-09-13","colorScheme":"ocean-sand","preTrip":{"weather":{"summary":"9 月青岛约 19–26°C，海水约 23–25°C；白天紫外线仍强、早晚偏凉，海边风大。多数时候秋高气爽，但 9 月仍是台风季末。","typhoon":"出发前 3 天起看台风与海上大风预警：帆船、赶海、沙滩活动可能临时取消；备选酒店泳池、奥帆博物馆、商场室内活动。"},"packing":"宝宝：防晒霜、遮阳帽、防晒衣、薄外套、备用衣物至少 3 套、沙滩鞋/防滑鞋、赶海小桶铲子、零食水杯、安抚玩具、推车、常用药。大人：防晒、泳衣、浴巾、沙滩垫、防水袋、充电宝。","payment":"商场/餐厅可扫码刷卡；海鲜市场、小摊与部分渔家宴建议备少量现金。租车押金需信用卡。","apps":["潮汐表精灵（赶海看最低潮时间）","高德/百度地图（自驾导航、实时路况）","大众点评/小红书（海鲜餐厅核实与排队）","航司 App / 12306（值机、检票口与航班动态）","租车平台 App（订单、还车、儿童座椅）"],"ticketTip":"帆船出海提前 1–3 天购票并确认风浪；租车与儿童安全座椅提前 7 天确认；开海/船歌等热门海鲜餐厅提前 1 天订位。页面内时间与价格为参考，出行前请用官方渠道核实。"},"flights":{"booked":[{"label":"去程高铁 G7552","code":"09.13 嘉善南 08:02 → 上海虹桥 08:25","time":"08:02–08:25（订单 E341780585）","note":"车票当日当次有效；到虹桥后转 T2 航站楼。带宝宝户口本原件走人工通道。"},{"label":"去程航班 SC4660 山东航空","code":"09.13 上海虹桥 T2 10:15 → 青岛胶东 11:55","time":"10:15–11:55（经济舱，737，有小食）","note":"落地后 12:30 在胶东机场取租车。"},{"label":"返程航班 SC4667 山东航空","code":"09.16 青岛胶东 15:10 → 上海虹桥 T2 16:50","time":"15:10–16:50（经济舱，737，有小食）","note":"建议 13:10 前到机场；先还车再值机。"},{"label":"返程高铁 G7343","code":"09.16 上海虹桥 19:06 → 嘉善南 19:29","time":"19:06–19:29（订单 E393072564，检票口 13A13B）","note":"如检票口变更以现场公告为准；宝宝在高铁上解决晚饭。"}],"candidates":[]},"hotelAreas":[{"area":"青岛山港凯悦酒店（9.13–9.16，3 晚）","reason":"已订：青岛山港凯悦酒店，崂山区东海东路 88 号，就在石老人海水浴场旁。下楼即沙滩，去小麦岛约 6 公里、奥帆中心约 8 公里，完美贴合宝宝午睡节奏。","options":[{"tier":"已订","name":"青岛山港凯悦酒店（凯悦客房大床房 1 间）","priceRange":"实付 ¥2297.47（3 晚，不可退改）","note":"42㎡ 大床房、有窗、可住 2 人；含每日双人自助早餐 + 6 岁以下赠沙滩玩具。带宝宝入住建议提前和酒店确认婴儿床/加床；入住人丁诚笑，凭姓名与证件 15:00 后入住，9.16 12:00 前退房。","address":"山东省青岛市崂山区东海东路 88 号","days":"09.13–09.16","lat":36.0928,"lng":120.4688}]}],"disclaimer":"本页信息（航班、高铁、租车、酒店、景点、餐厅、门票、价格、营业时间、潮汐与路况等）均为参考，可能不准确或已过时；出行前请用航司/12306、租车平台、酒店官方、地图 App、潮汐表与当地官方渠道逐项核实后再做决定或前往。","tips":["固定节奏：上午 9 点出门玩一个点，12:30 前回酒店午睡，15:00 后再出门，21:00 前回酒店；三天都保持，宝宝生物钟不乱。","赶海：石老人东侧礁石区从酒店走过去约 5 分钟；用『潮汐表精灵』查最低潮时间，在最低潮前后 2 小时内去。最低潮在上午就上午去，在下午就下午去，灵活安排。","礁石湿滑且会涨潮：穿防滑鞋，不走到没人的礁石深处；看到海水开始回涨立刻往岸上走。","帆船出海看风浪：上船前确认儿童救生衣；遇大风/台风预警会停航，备选奥帆博物馆、酒店泳池或情人坝慢逛。","自驾：胶东机场→酒店约 55 公里；酒店→黄岛银沙滩走胶州湾海底隧道约 30–40 公里、1 小时，隧道费往返参考 20 元。","已按你的决定放弃栈桥、八大关、啤酒博物馆、海军博物馆、会场赶海园；核心就是石老人、小麦岛、奥帆帆船、银沙滩四个点。","酒店房型标注可住 2 人，你们是 2 大人 + 1 个宝宝：提前和酒店确认宝宝入住、婴儿床/加床与早餐政策，避免到店再沟通。"],"reminders":[{"item":"租车 + 儿童安全座椅确认（比亚迪海鸥，9.13 12:30 胶东机场送车）","leadDays":7},{"item":"奥帆中心帆船出海购票","leadDays":3},{"item":"出发前 3 天查台风/海上大风预警","leadDays":3},{"item":"开海 / 船歌等热门海鲜餐厅订位","leadDays":2},{"item":"查 9.13–9.16 潮汐时间（赶海日重点）","leadDays":1},{"item":"值机、12306 检票口、租车与酒店订单确认","leadDays":1}],"checklists":[{"icon":"🛂","name":"证件与票据（重点）","items":["宝宝户口本原件（走人工通道，值机/登机用）","大人身份证、宝宝出生证明或户口本","高铁票 G7552 / G7343（订单号 E341780585 / E393072564）","航班 SC4660 / SC4667 电子行程单","酒店订单（入住人丁诚笑，凭姓名+证件）","租车订单与信用卡（押金）","旅游保险单号与紧急联系电话"]},{"icon":"👶","name":"宝宝出行","items":["防晒霜、遮阳帽、防晒衣、薄外套","备用衣物至少 3 套 + 密封袋装湿衣服","赶海小桶铲、沙滩鞋/防滑鞋","零食、水杯、安抚玩具、绘本（车上哄娃）","推车（小麦岛、情人坝都是平路）","常用药、退烧贴、创可贴、驱蚊/止痒","湿巾、纸巾、免洗洗手液、小毯子"]},{"icon":"🪣","name":"赶海与沙滩","items":["潮汐表精灵查最低潮时间（±2 小时去）","防滑鞋/沙滩鞋、手套（翻石头用）","小桶、铲子、装贝壳的小袋","浴巾、沙滩垫、遮阳伞或帐篷","防水袋（手机/车钥匙）、泳衣（可选）","冲洗后换的干净衣物","防晒霜随身补涂"]},{"icon":"🚗","name":"租车与自驾","items":["比亚迪海鸥租车 3 天（9.13 12:30 胶东机场送车）","儿童安全座椅（提前向租车公司确认）","驾照、信用卡、手机支架、车充","确认还车时间与胶东机场还车点","胶东机场→酒店 55 公里路线提前看","海底隧道往返约 20 元，确认支付方式","停车场：奥帆中心、小麦岛、银沙滩景区停车场"]},{"icon":"🏖","name":"每天出门前","items":["看天气与潮汐：大风/雷雨就改室内备选","宝宝防晒、帽子、水杯、备用衣物","手机满电、车钥匙、房卡、少量现金","推车/沙滩玩具按当天目的地带","确认午睡时间，12:30 前回酒店"]}],"days":[{"date":"2026-09-13","weekday":"周日","theme":"嘉善→上海→青岛 · 提车 · 帆船 · 五四夜景","tips":["08:02 嘉善南 G7552 → 08:25 上海虹桥；转虹桥 T2 坐 SC4660（10:15–11:55）。带宝宝户口本原件走人工通道。","11:55 落地胶东，12:30 机场送车（比亚迪海鸥，租 3 天）；开往石老人酒店约 55 公里、55 分钟。","酒店 15:00 后才能入住；到店先寄存行李、吃午饭，宝宝午睡后再去奥帆。","帆船末班时间出发前电话确认：若 17:00 后不再出海，就把帆船挪到 9.14 傍晚，石老人沙改当天下午。"],"slots":[{"period":"morning","name":"嘉善南 → 上海虹桥（G7552）","time":"08:02–08:25","lat":30.8276,"lng":120.9216,"rating":"4.4","review":"高铁 23 分钟到虹桥，转 T2 航站楼；订单号 E341780585，车票当日当次有效。","needsBooking":false},{"period":"morning","name":"虹桥 T2 → 青岛胶东（SC4660）","time":"10:15–11:55","lat":31.1975,"lng":121.32,"rating":"4.4","review":"山东航空经济舱，737 中型机，有小食；到达准点率参考 80%。","openingHours":"起飞前 2 小时到机场","needsBooking":false},{"period":"noon","name":"胶东机场提车（比亚迪海鸥）","time":"12:30–13:00","lat":36.3611,"lng":120.0872,"rating":"4.3","review":"12:30 机场送车，租期 3 天；先确认儿童安全座椅与还车时间，再开往酒店。","transport":{"mode":"自驾","fare":"租金已付/以平台为准","duration":"机场→酒店约 55 分钟"},"needsBooking":true,"leadDays":7},{"period":"afternoon","name":"酒店寄存 + 午餐 + 宝宝午睡","time":"13:30–15:30","lat":36.0928,"lng":120.4688,"rating":"4.6","review":"酒店 15:00 后入住；先寄存行李吃饭，宝宝睡一觉。入住人丁诚笑，凭姓名与证件办理。","needsBooking":false},{"period":"afternoon","name":"奥帆中心帆船出海","time":"16:45–17:30","lat":36.0605,"lng":120.3897,"rating":"4.7","review":"奥帆中心官方售票点购票，约 30 分钟；上船前确认儿童救生衣，风浪大可能停航。","openingHours":"参考 09:00–18:00（末班需电话确认）","ticketPrice":"参考 100–200 元/人（船型不同）","transport":{"mode":"自驾","fare":"停车费另计","duration":"酒店→奥帆约 20 分钟"},"needsBooking":true,"leadDays":3},{"period":"evening","name":"情人坝 + 灯塔散步","time":"17:30–18:45","lat":36.0586,"lng":120.3924,"rating":"4.6","review":"推车平路无台阶，看帆船、灯塔和海景；风大时给宝宝加薄外套。","needsBooking":false},{"period":"evening","name":"百丽/远洋广场海鲜晚餐","time":"18:45–19:45","lat":36.063,"lng":120.3865,"rating":"4.5","review":"给宝宝点清蒸鱼、蛤蜊蒸蛋这类清淡的；热门店提前订位或避开饭点。","needsBooking":false},{"period":"evening","name":"五四广场灯光秀","time":"19:45–20:45","lat":36.0626,"lng":120.3847,"rating":"4.6","review":"从百丽广场沿海边步道推车走过去约 1–2 公里，不用开车；9 月参考 19:40–21:00 亮灯。","needsBooking":false}],"dining":[{"meal":"午餐","place":"酒店/机场附近简餐","hours":"13:30 前后","dishes":[{"name":"面食/清蒸鱼/青菜（宝宝友好）","price":"人均 50–100 元"}],"options":[{"name":"山港凯悦酒店中餐厅/咖啡厅","hours":"11:30–14:00","note":"到店早、宝宝要午睡，酒店解决最省事","dishes":[{"name":"清蒸鱼/时蔬/面食","price":"人均 120–200 元"}],"lat":36.0928,"lng":120.4688,"approx":false},{"name":"石老人附近面馆/简餐","hours":"10:30–20:00","note":"清淡面食，适合刚落地的宝宝","dishes":[{"name":"海鲜面、清汤面、蒸饺","price":"人均 40–80 元"}],"lat":36.092,"lng":120.47,"approx":true},{"name":"胶东机场美食广场","hours":"随航班","note":"如飞机上没吃好，落地先垫一口","dishes":[{"name":"面/饭简餐","price":"人均 50–100 元"}],"lat":36.3611,"lng":120.0872,"approx":false}]},{"meal":"晚餐","place":"百丽/远洋广场海鲜","hours":"18:45–19:45","dishes":[{"name":"辣炒蛤蜊、鲅鱼水饺、海鲜疙瘩汤","price":"人均 120–180 元"}],"options":[{"name":"开海红岛海鲜虾水饺（闽江路/香港中路）","hours":"11:00–21:30","note":"本地口碑海鲜，虾水饺与辣炒蛤蜊必点","dishes":[{"name":"虾水饺","price":"约 40–60 元/份"},{"name":"辣炒蛤蜊","price":"约 50–70 元"},{"name":"海鲜疙瘩汤","price":"约 40–60 元"}],"lat":36.0665,"lng":120.382,"approx":true},{"name":"船歌鱼水饺（百丽广场店）","hours":"11:00–21:30","note":"鲅鱼/墨鱼水饺出名，宝宝可吃原味","dishes":[{"name":"鲅鱼水饺","price":"约 50–70 元/份"},{"name":"墨鱼水饺","price":"约 50–70 元/份"}],"lat":36.0628,"lng":120.3865,"approx":true},{"name":"前海沿·青岛菜（奥帆中心）","hours":"11:00–21:00","note":"青岛菜+海景，离情人坝近","dishes":[{"name":"蒸海鲜拼盘","price":"人均 120–180 元"},{"name":"鲅鱼饺子","price":"人均 120–180 元"}],"lat":36.0605,"lng":120.3897,"approx":true}]}]},{"date":"2026-09-14","weekday":"周一","theme":"小麦岛环岛 + 石老人沙滩","tips":["小麦岛停车场容易满，满了可停银海大世界再走过去；9 点前到不晒，11 点前撤。","下午就在酒店楼下石老人沙滩玩沙踩水，不用开车，累了随时回房。"],"slots":[{"period":"morning","name":"小麦岛公园环岛","time":"09:15–11:30","lat":36.0609,"lng":120.4286,"rating":"4.8","review":"推车环岛 + 草坪玩耍，看海浪拍礁石；视野开阔，注意遮阳和海边风。","transport":{"mode":"自驾","fare":"停车费另计","duration":"酒店→小麦岛约 15 分钟"},"needsBooking":false},{"period":"noon","name":"回酒店午睡","time":"11:30–15:00","lat":36.0928,"lng":120.4688,"rating":"4.5","review":"按固定节奏回房午睡，下午才有精神继续玩。","needsBooking":false},{"period":"afternoon","name":"石老人沙滩玩沙踩水","time":"15:00–18:00","lat":36.0927,"lng":120.468,"rating":"4.7","review":"下楼即沙滩；带换洗衣物、浴巾和沙滩玩具，注意涨潮线与防晒。","needsBooking":false},{"period":"evening","name":"酒店附近海鲜 / 外卖","time":"18:00–21:00","lat":36.0928,"lng":120.4688,"rating":"4.4","review":"玩累了可以叫外卖到房间吃，早点休息。","needsBooking":false}],"dining":[{"meal":"午餐","place":"酒店或麦岛附近","hours":"11:30–12:30","dishes":[{"name":"海鲜疙瘩汤、清蒸鱼、青菜","price":"人均 80–150 元"}],"options":[{"name":"船歌鱼水饺（麦岛/极地店）","hours":"11:00–21:30","note":"小麦岛回酒店顺路，宝宝友好","dishes":[{"name":"鲅鱼水饺","price":"约 50–70 元/份"},{"name":"海鲜疙瘩汤","price":"约 40 元"}],"lat":36.065,"lng":120.44,"approx":true},{"name":"双合园饺子（鲅鱼饺子）","hours":"10:30–21:00","note":"本地连锁，饺子+小菜简单吃","dishes":[{"name":"鲅鱼饺子","price":"约 40–60 元/份"}],"lat":36.07,"lng":120.42,"approx":true},{"name":"酒店餐厅/客房送餐","hours":"全天","note":"午睡优先，吃完直接回房","dishes":[{"name":"清蒸鱼/粥/面","price":"人均 120–200 元"}],"lat":36.0928,"lng":120.4688,"approx":false}]},{"meal":"晚餐","place":"石老人附近海鲜","hours":"18:00–20:00","dishes":[{"name":"辣炒蛤蜊、鲅鱼水饺、烤鱿鱼","price":"人均 100–180 元"}],"options":[{"name":"开海红岛海鲜虾水饺（市区店）","hours":"11:00–21:30","note":"想认真吃一顿海鲜选它，提前订位","dishes":[{"name":"虾水饺","price":"约 40–60 元/份"},{"name":"辣炒蛤蜊","price":"约 50–70 元"}],"lat":36.0665,"lng":120.382,"approx":true},{"name":"海岛渔村海鲜大排档（石老人一带）","hours":"11:00–22:00","note":"离酒店近，按当天时价点海鲜","dishes":[{"name":"清蒸鱼、辣炒蛤蜊、海菜凉粉","price":"人均 100–180 元"}],"lat":36.093,"lng":120.47,"approx":true},{"name":"酒店海景自助/客房送餐","hours":"17:30–21:00","note":"玩累了直接叫到房间，宝宝早点睡","dishes":[{"name":"自助或点餐","price":"人均 150–250 元"}],"lat":36.0928,"lng":120.4688,"approx":false}]}]},{"date":"2026-09-15","weekday":"周二","theme":"黄岛银沙滩玩沙 + 下午石老人","tips":["今天是唯一长途：走胶州湾海底隧道约 1 小时，往返过路费参考 20 元；一早出发，宝宝精力好。","银沙滩沙质很细、人比金沙滩少；停车场附近有冲洗处，带好换洗衣物和浴巾。"],"slots":[{"period":"morning","name":"酒店 → 黄岛银沙滩","time":"09:00–10:00","lat":35.958,"lng":120.128,"rating":"4.3","review":"走胶州湾海底隧道约 30–40 公里、1 小时；隧道费往返参考 20 元。","transport":{"mode":"自驾","fare":"隧道费往返约 20 元","duration":"约 1 小时"},"needsBooking":false},{"period":"morning","name":"银沙滩玩沙","time":"10:00–12:00","lat":35.958,"lng":120.128,"rating":"4.8","review":"沙质细、浪小，适合宝宝玩沙；停车场附近可冲洗，注意遮阳。","needsBooking":false},{"period":"noon","name":"回酒店午睡","time":"12:00–15:00","lat":36.0928,"lng":120.4688,"rating":"4.5","review":"宝宝大概率在车上睡着，到酒店直接午睡。","needsBooking":false},{"period":"afternoon","name":"石老人沙滩 / 东侧赶海","time":"15:00–18:00","lat":36.0927,"lng":120.468,"rating":"4.7","review":"继续玩沙踩水，或去东侧礁石区赶海；务必先查最低潮时间，涨潮立刻上岸。","needsBooking":false}],"dining":[{"meal":"午餐（银沙滩）","place":"银沙滩/金沙滩附近","hours":"12:00 前后","dishes":[{"name":"渔家海鲜面、辣炒蛤蜊、清蒸鱼","price":"人均 80–150 元"}],"options":[{"name":"银沙滩附近渔家宴","hours":"11:00–20:00","note":"景区附近农家海鲜，环境简单但方便","dishes":[{"name":"海鲜面、辣炒蛤蜊、清蒸鱼","price":"人均 80–150 元"}],"lat":35.958,"lng":120.128,"approx":true},{"name":"金沙滩海鲜街","hours":"10:30–21:00","note":"开车约 15 分钟，选择更多","dishes":[{"name":"海鲜大咖、蛤蜊、鲅鱼饺子","price":"人均 120–200 元"}],"lat":35.966,"lng":120.185,"approx":true},{"name":"自带简餐 + 水果","hours":"随时","note":"宝宝玩沙不想走远，沙滩边野餐最省事","dishes":[{"name":"面包、酸奶、水果、小零食","price":"按采购"}],"lat":35.958,"lng":120.128,"approx":true}]},{"meal":"晚餐","place":"开海 / 船歌（市区）","hours":"18:30–20:00","dishes":[{"name":"虾水饺、海鲜疙瘩汤、辣炒蛤蜊","price":"人均 120–180 元"}],"options":[{"name":"开海红岛海鲜虾水饺（市区店）","hours":"11:00–21:30","note":"回市区后吃一顿正式海鲜","dishes":[{"name":"虾水饺、辣炒蛤蜊、海鲜疙瘩汤","price":"人均 120–180 元"}],"lat":36.0665,"lng":120.382,"approx":true},{"name":"船歌鱼水饺","hours":"11:00–21:30","note":"连锁、出品稳，宝宝有清淡选择","dishes":[{"name":"鲅鱼水饺、墨鱼水饺","price":"人均 80–120 元"}],"lat":36.0628,"lng":120.3865,"approx":true},{"name":"万和春排骨米饭（老字号）","hours":"10:30–21:00","note":"换口味，排骨米饭简单好吃","dishes":[{"name":"排骨米饭、小菜","price":"人均 35–60 元"}],"lat":36.0705,"lng":120.362,"approx":true}]}]},{"date":"2026-09-16","weekday":"周三","theme":"最后沙滩 + 返程（青岛 → 上海 → 嘉善）","tips":["09:45 前离开沙滩，回酒店冲洗收拾；12:00 前退房。","15:10 的航班，建议 13:10 前到机场：12:00 出发，约 13:00 到胶东，先还车再值机。","返程高铁 G7343 19:06 虹桥 → 19:29 嘉善南，检票口参考 13A13B；宝宝晚饭在虹桥/高铁上解决。"],"slots":[{"period":"morning","name":"石老人沙滩最后一玩","time":"08:30–09:45","lat":36.0927,"lng":120.468,"rating":"4.7","review":"捡贝壳、踩水、拍合照；注意时间，别拖太久。","needsBooking":false},{"period":"morning","name":"回酒店冲洗、午餐、退房","time":"09:45–12:00","lat":36.0928,"lng":120.4688,"rating":"4.4","review":"给娃冲洗换衣服，检查房间；12:00 前退房，简单吃午饭。","needsBooking":false},{"period":"noon","name":"酒店 → 胶东机场（还车）","time":"12:00–13:00","lat":36.3611,"lng":120.0872,"rating":"4.3","review":"约 55 公里、55 分钟；到机场先还车，再值机安检。","transport":{"mode":"自驾","fare":"油费自理","duration":"约 55 分钟"},"needsBooking":false},{"period":"afternoon","name":"SC4667 胶东 → 上海虹桥 T2","time":"15:10–16:50","lat":36.3611,"lng":120.0872,"rating":"4.4","review":"山东航空 737；落地虹桥后转高铁，预留取行李与转乘时间。","needsBooking":false},{"period":"evening","name":"G7343 上海虹桥 → 嘉善南","time":"19:06–19:29","lat":31.1975,"lng":121.32,"rating":"4.4","review":"订单号 E393072564；检票口参考 13A13B，以现场公告为准。","needsBooking":false}],"dining":[{"meal":"早餐","place":"酒店自助早餐","hours":"07:30–08:30","dishes":[{"name":"酒店早餐（含双人自助）","price":"含在房费礼遇"}],"options":[{"name":"酒店自助早餐","hours":"06:30–10:00","note":"含双人自助；宝宝可吃粥、蛋、面","dishes":[{"name":"自助早餐","price":"含在房费礼遇"}],"lat":36.0928,"lng":120.4688,"approx":false}]},{"meal":"午餐","place":"酒店/机场简餐","hours":"11:00–12:00","dishes":[{"name":"面食/简餐","price":"人均 50–100 元"}],"options":[{"name":"酒店餐厅/客房送餐","hours":"11:00–14:00","note":"退房前简单吃，别耽误去机场","dishes":[{"name":"面/粥/简餐","price":"人均 100–180 元"}],"lat":36.0928,"lng":120.4688,"approx":false},{"name":"胶东机场美食广场","hours":"随航班","note":"时间紧就在机场解决","dishes":[{"name":"面/饭简餐","price":"人均 50–100 元"}],"lat":36.3611,"lng":120.0872,"approx":false}]}]}]}</script>
+<script>
+(function(){
+  var TRIP = JSON.parse(document.getElementById('trip-data').textContent);
+  var PERIOD = {morning:'上午', noon:'中午', afternoon:'下午', evening:'晚上'};
+  var state = { day: 0, tab: '行程' };
+  var geo = { pos: null, sort: false, watch: null };
+
+  function hav(la1,ln1,la2,ln2){
+    var R=6371, dLa=(la2-la1)*Math.PI/180, dLn=(ln2-ln1)*Math.PI/180;
+    var a=Math.sin(dLa/2)*Math.sin(dLa/2)+Math.cos(la1*Math.PI/180)*Math.cos(la2*Math.PI/180)*Math.sin(dLn/2)*Math.sin(dLn/2);
+    return 2*R*Math.asin(Math.sqrt(a));
+  }
+  function slotDist(s){ return geo.pos?hav(geo.pos.lat,geo.pos.lng,s.lat,s.lng):99999; }
+  function foodDist(o){ return (geo.pos&&typeof o.lat==='number')?hav(geo.pos.lat,geo.pos.lng,o.lat,o.lng):99999; }
+  function fmtKm(km){ return km<1?(Math.round(km*1000)+' m'):(km<10?km.toFixed(1):Math.round(km))+' km'; }
+  function estTime(km){ return km<1.2 ? ('步行约 '+Math.max(1,Math.round(km/0.08))+' 分钟') : ('车程约 '+Math.max(2,Math.round(km/0.4))+' 分钟'); }
+  function refreshDistances(){
+    var els=document.querySelectorAll('.distchip');
+    if(!geo.pos){ els.forEach(function(e){ e.textContent='📍 --'; }); return; }
+    els.forEach(function(e){
+      var la=Number(e.getAttribute('data-geo-lat')), ln=Number(e.getAttribute('data-geo-lng'));
+      if(!la||!ln) return;
+      var km=hav(geo.pos.lat,geo.pos.lng,la,ln);
+      e.textContent='📍 '+fmtKm(km)+' · '+estTime(km);
+    });
+    var st=document.getElementById('geo-status');
+    if(st) st.textContent='定位中 · 精度约 '+Math.round(geo.pos.acc||0)+' m（距离为直线）';
+  }
+  function startGeo(){
+    if(!navigator.geolocation){ alert('当前浏览器不支持定位，请用 Safari/Chrome 打开。'); return; }
+    document.getElementById('geo-status').textContent='正在获取定位…';
+    if(geo.watch!=null && navigator.geolocation.clearWatch) navigator.geolocation.clearWatch(geo.watch);
+    geo.watch=navigator.geolocation.watchPosition(function(p){
+      geo.pos={lat:p.coords.latitude,lng:p.coords.longitude,acc:p.coords.accuracy};
+      document.getElementById('geo-btn').textContent='📍 实时定位中';
+      document.getElementById('geo-sort').style.display='inline-block';
+      try{ sessionStorage.setItem('trip-geo','1'); }catch(e){}
+      if(state.tab==='行程') renderDay();
+      else if(state.tab==='美食') renderFood();
+      else refreshDistances();
+    }, function(err){
+      document.getElementById('geo-status').textContent='定位失败：'+(err.message||'请检查定位权限')+'（iOS 需在 HTTPS 页面允许定位）';
+    }, {enableHighAccuracy:true, maximumAge:8000, timeout:20000});
+  }
+
+  function esc(s){ return String(s==null?'':s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#39;'); }
+  function setDates(){
+    document.getElementById('app-dates').textContent = TRIP.days[0].date + ' → ' + TRIP.days[TRIP.days.length-1].date;
+    document.getElementById('app-count').textContent = TRIP.days.length + ' 天';
+  }
+
+  function mapLinks(p){
+    var q = encodeURIComponent(p.lat + ',' + p.lng);
+    return {
+      apple:'https://maps.apple.com/?ll='+p.lat+','+p.lng+'&q='+encodeURIComponent(p.name),
+      google:'https://www.google.com/maps/search/?api=1&query='+q,
+      amap:'https://uri.amap.com/marker?position='+p.lng+','+p.lat+'&name='+encodeURIComponent(p.name)+'&coordinate=wgs84&callnative=1'
+    };
+  }
+
+  function bindNavCopy(root){
+    root.querySelectorAll('[data-nav]').forEach(function(b){ b.addEventListener('click', function(){ openPoint({name:b.getAttribute('data-name'),lat:Number(b.getAttribute('data-lat')),lng:Number(b.getAttribute('data-lng'))}, true); }); });
+    root.querySelectorAll('[data-copy]').forEach(function(b){ b.addEventListener('click', function(){ openPoint({name:b.getAttribute('data-name'),lat:Number(b.getAttribute('data-lat')),lng:Number(b.getAttribute('data-lng'))}, false); }); });
+  }
+
+  function showSheet(id){ document.getElementById(id).classList.add('on'); }
+  function hideSheets(){ document.querySelectorAll('.sheet').forEach(function(s){ s.classList.remove('on'); }); }
+  function openPoint(p, isNav){
+    var links = mapLinks(p);
+    document.getElementById('sheet-title').textContent = (isNav?'导航：':'打车：') + p.name;
+    document.getElementById('sheet-addr').textContent = p.name + '\n' + p.lat + ', ' + p.lng + '\n' + links.google;
+    document.getElementById('lnk-apple').href = links.apple;
+    document.getElementById('lnk-google').href = links.google;
+    document.getElementById('lnk-amap').href = links.amap;
+    showSheet('sheet-nav');
+  }
+
+  /* ===== 行程 ===== */
+  function renderDayStrip(){
+    var h = '<div class="daystrip">';
+    TRIP.days.forEach(function(d,i){
+      h += '<div class="daychip'+(i===state.day?' on':'')+'" data-day="'+i+'"><div class="d">'+d.date.slice(5).replace('-','/')+'</div><div class="n">'+(i+1)+'</div><small>'+esc(d.weekday)+'</small></div>';
+    });
+    return h + '</div>';
+  }
+  function mealHTML(list){
+    if(!list||!list.length) return '<div class="dining"><h4>本日无单独餐饮安排</h4><p style="font-size:12px;color:#6b5836">餐点多随行程简餐/夜市解决，可切到“美食”页签查看。</p></div>';
+    return '<div class="dining"><h4>🍜 今日吃喝</h4>'+list.map(function(m){
+      var ds=(m.dishes||[]).map(function(x){ return '<div class="meal"><span>'+esc(x.name)+'</span><b>'+esc(x.price||'')+'</b></div>'; }).join('');
+      return '<p style="margin-top:6px;font-weight:700">'+esc(m.meal)+' · '+esc(m.place)+(m.hours?'（'+esc(m.hours)+'）':'')+'</p>'+ds;
+    }).join('')+'</div>';
+  }
+  function slotHTML(s){
+    var meta='';
+    if(s.rating) meta+='<span class="chip">★ '+esc(String(s.rating))+'</span>';
+    if(s.openingHours) meta+='<span class="chip">🕐 '+esc(s.openingHours)+'</span>';
+    if(s.ticketPrice) meta+='<span class="chip">🎫 '+esc(s.ticketPrice)+'</span>';
+    if(s.transport&&s.transport.mode) meta+='<span class="chip">🚕 '+esc(s.transport.mode)+(s.transport.duration?' · '+esc(s.transport.duration):'')+'</span>';
+    if(s.needsBooking) meta+='<span class="chip book">⚠ 提前'+s.leadDays+'天订</span>';
+    if(typeof s.lat==='number'&&typeof s.lng==='number') meta+='<span class="chip distchip" data-geo-lat="'+s.lat+'" data-geo-lng="'+s.lng+'">📍 --</span>';
+    return '<div class="item"><div class="t">'+esc(s.time||'')+'</div><div class="body">'+
+      '<div class="nm">'+esc((s.period?PERIOD[s.period]+' · ':'')+s.name)+'</div>'+
+      (s.review?'<div class="rv">'+esc(s.review)+'</div>':'')+
+      (s.photo?'<div class="slotphoto"><img src="'+esc(s.photo)+'" alt="'+esc(s.name)+'" loading="lazy" onerror="this.style.display=\'none\'"></div>':'')+
+      '<div class="meta">'+meta+'</div>'+
+      '<details class="pguide"><summary>📖 攻略 / 实用信息</summary><div class="pgin">'+
+        (s.openingHours?'🕐 营业/开放：'+esc(s.openingHours)+'<br>':'')+
+        (s.ticketPrice?'🎫 门票：'+esc(s.ticketPrice)+'<br>':'')+
+        (s.transport?('🚕 交通：'+esc(s.transport.mode||'')+(s.transport.duration?(' · '+esc(s.transport.duration)):'')+(s.transport.fare?(' · '+esc(s.transport.fare)):'')+'<br>'):'')+
+        (s.seasonal?('🌸 时令：'+esc(s.seasonal)+'<br>'):'')+
+        (s.needsBooking?('⚠ 建议提前 '+s.leadDays+' 天预订<br>'):'')+
+        '建议提前在地图 App 收藏点位，出门前看一次营业时间与着装要求。'+
+      '</div></details>'+
+      '<div class="actrow">'+
+        '<button class="btn primary" data-nav data-name="'+esc(s.name)+'" data-lat="'+s.lat+'" data-lng="'+s.lng+'">🧭 导航</button>'+
+        '<button class="btn gold" data-copy data-name="'+esc(s.name)+'" data-lat="'+s.lat+'" data-lng="'+s.lng+'">🚕 打车</button>'+
+      '</div></div></div>';
+  }
+  function renderDay(){
+    var d = TRIP.days[state.day];
+    var h = renderDayStrip();
+    h += '<div class="card day-head"><div><h2>第 '+(state.day+1)+' 天 · '+esc(d.weekday)+' '+esc(d.date)+'</h2><div class="tag">'+esc(d.theme||'')+'</div></div></div>';
+    if(d.tips&&d.tips.length) h+='<div class="tipbox">'+d.tips.map(function(t){return '<p>'+esc(t)+'</p>';}).join('')+'</div>';
+    var slots=(d.slots||[]).slice();
+    if(geo.sort&&geo.pos){ slots.sort(function(a,b){ return slotDist(a)-slotDist(b); }); }
+    slots.forEach(function(s){ h+='<div class="card">'+slotHTML(s)+'</div>'; });
+    h += '<div class="card">'+mealHTML(d.dining)+'</div>';
+    document.getElementById('hero-day').textContent='第 '+(state.day+1)+' 天 · '+esc(d.weekday);
+    document.getElementById('hero-sub').textContent='今日主题：'+(d.theme||'');
+    document.getElementById('day-root').innerHTML=h;
+    document.querySelectorAll('.daychip').forEach(function(c){ c.addEventListener('click',function(){ state.day=Number(c.getAttribute('data-day')); renderDay(); }); });
+    bindNavCopy(document.getElementById('day-root'));
+    refreshDistances();
+  }
+
+  /* ===== 美食 ===== */
+  function renderFood(){
+    var h='<div class="section"><h3>按日安排</h3><span>午餐/晚餐与当天行程契合</span></div>';
+    TRIP.days.forEach(function(d,di){
+      h+='<div class="card"><div class="daycard-head"><div><b>第 '+(di+1)+' 天 · '+esc(d.weekday)+' '+esc(d.date)+'</b><div style="font-size:11px;color:#6f7e78;margin-top:2px">'+esc(d.theme||'')+'</div></div><button class="gobtn" data-goday="'+di+'">回到这天</button></div>';
+      var meals=(d.dining||[]);
+      if(!meals.length){ h+='<p style="font-size:12px;color:#8a9791">当天以行程中的简餐/小吃为主，无固定餐厅安排。</p>'; }
+      meals.forEach(function(m){
+        var city = di<=1 ? '曼谷' : (di<=5 ? '清迈' : '曼谷');
+        h+='<div class="mealrow"><div class="mt">'+esc(m.meal)+'</div>';
+        var opts=(m.options&&m.options.length)?m.options:[{name:m.place,hours:m.hours,note:'',dishes:m.dishes}];
+        if(geo.sort&&geo.pos){ opts=opts.slice().sort(function(a,b){ return foodDist(a)-foodDist(b); }); }
+        opts.forEach(function(o,oi){
+          h+='<div class="foodopt"><div class="pl">'+(oi+1)+'. '+esc(o.name)+((typeof o.lat==='number'&&typeof o.lng==='number')?' <span class="chip distchip" data-geo-lat="'+o.lat+'" data-geo-lng="'+o.lng+'">📍 --</span>':'')+'</div>'+(o.hours?'<div class="hs">'+esc(o.hours)+'</div>':'')+(o.note?'<div class="note">'+esc(o.note)+'</div>':'');
+          (o.dishes||[]).forEach(function(x){ h+='<div class="dish"><span>'+esc(x.name)+'</span><b>'+esc(x.price||'')+'</b></div>'; });
+          var q=encodeURIComponent(o.name+' '+city);
+          h+='<div class="actrow" style="margin-top:6px">'+
+             '<a class="btn primary" target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&query='+q+'">🧭 导航</a>'+
+             '<a class="btn" target="_blank" rel="noopener" href="https://maps.apple.com/?q='+q+'">🍎 苹果地图</a>'+
+             '<button class="btn gold" data-copyname="'+esc(o.name+' '+city)+'">🚕 复制给 Grab</button>'+
+             '</div>';
+          h+='</div>';
+        });
+        h+='</div>';
+      });
+      h+='</div>';
+    });
+    var giftGroup=(TRIP.checklists||[]).filter(function(g){return (g.name||'').indexOf('纪念品')>=0;})[0];
+    if(giftGroup){
+      h+='<div class="section"><h3>🛍 顺手买这些</h3><span>瓦洛洛/商场/机场</span></div><div class="card"><div class="chiprow">'+giftGroup.items.map(function(x){return '<span class="chip" style="font-size:11.5px;padding:4px 9px">'+esc(x.split('：')[0])+'</span>';}).join('')+'</div><p style="font-size:11.5px;color:#7b8a82;margin-top:8px">详细“哪里买 + 注意事项”见「清单」页的“纪念品与特产”分组。</p></div>';
+    }
+    h+='<div class="section"><h3>🦐 青岛海边必吃</h3><span>本地口碑清单</span></div><div class="card">'+
+      '<p style="font-size:12.5px;color:#42524b;line-height:1.9">'+
+      '1. <b>辣炒蛤蜊 + 青岛啤酒</b>：青岛标配，登州路啤酒街/台东都能吃到<br>'+
+      '2. <b>鲅鱼水饺 / 墨鱼水饺</b>：船歌鱼水饺最稳，给宝宝点不辣版本<br>'+
+      '3. <b>海鲜疙瘩汤</b>：暖胃、宝宝也能喝，配虾水饺<br>'+
+      '4. <b>烤鱿鱼 / 海肠捞饭</b>：云霄路、闽江路夜市/大排档常见<br>'+
+      '5. <b>万和春排骨米饭</b>：青岛老字号，换口味时吃<br>'+
+      '6. <b>海菜凉粉、青岛锅贴</b>：本地小吃，适合当下午加餐'+
+      '</p><p style="font-size:11px;color:#8a9791;margin-top:8px">结合本地公开口碑与真实店铺整理；海鲜按当天时价，热门店建议点评/地图先看排队与营业时间。</p></div>';
+    document.getElementById('view-美食').innerHTML=h;
+    document.querySelectorAll('#view-美食 [data-goday]').forEach(function(b){ b.addEventListener('click',function(){ state.day=Number(b.getAttribute('data-goday')); switchTab('行程'); renderDay(); }); });
+    document.querySelectorAll('#view-美食 [data-copyname]').forEach(function(b){
+      b.addEventListener('click', function(){
+        var txt=b.getAttribute('data-copyname');
+        function ok(){ b.textContent='✓ 已复制'; setTimeout(function(){ b.textContent='🚕 复制给 Grab'; },1500); }
+        if(navigator.clipboard&&navigator.clipboard.writeText){ navigator.clipboard.writeText(txt).then(ok); }
+        else { var ta=document.createElement('textarea'); ta.value=txt; document.body.appendChild(ta); ta.select(); document.execCommand('copy'); document.body.removeChild(ta); ok(); }
+      });
+    });
+  }
+
+  /* ===== 酒店 ===== */
+  function hotelActions(h){
+    var acts='';
+    (h.options||[]).forEach(function(o){
+      if(!o.lat||!o.lng) return;
+      acts+='<div class="hotel-card card"><div class="hotel-top"><b>'+esc(o.name)+'</b>'+(o.days?'<span class="hotel-date">'+esc(o.days)+'</span>':'')+'</div>'+(o.address?'<div class="hotel-addr">📍 '+esc(o.address)+'</div>':'')+'<div class="small muted" style="font-size:12px;color:#55665f">'+esc(o.note||'')+'</div><div class="actrow">'+
+        '<button class="btn primary" data-nav data-name="'+esc(o.name)+'" data-lat="'+o.lat+'" data-lng="'+o.lng+'">🧭 地图导航</button>'+
+        '<button class="btn gold" data-copy data-name="'+esc(o.name)+'" data-lat="'+o.lat+'" data-lng="'+o.lng+'">🚕 打车去酒店</button>'+
+      '</div></div>';
+    });
+    return acts;
+  }
+  function renderHotels(){
+    var h='<div class="section"><h3>分段住宿</h3><span>已订 · 含导航/打车</span></div>';
+    (TRIP.hotelAreas||[]).forEach(function(ha){
+      h+='<div class="card"><div style="font-size:11px;color:#0b6b4c;font-weight:800">'+esc(ha.area)+'</div><p style="font-size:12.3px;color:#5b6c65;margin:5px 0 2px">'+esc(ha.reason)+'</p></div>';
+      h += hotelActions(ha);
+    });
+    h+='<div class="tipbox"><p>定位为酒店坐标参考：点“地图导航”会唤起苹果/谷歌/高德，打车前建议先在 Grab 里确认上车点名称。</p></div>';
+    document.getElementById('view-酒店').innerHTML=h;
+    bindNavCopy(document.getElementById('view-酒店'));
+  }
+
+  /* ===== 出行 ===== */
+  function renderTravel(){
+    var h='<div class="section"><h3>高铁 / 航班</h3><span>已确认班次</span></div>';
+    var flights=(TRIP.flights.booked||[]).concat(TRIP.flights.candidates||[]);
+    flights.forEach(function(f){
+      h+='<div class="listitem flight"><div class="txt"><b>'+esc(f.label)+'</b><br><span style="font-size:12px;color:#4d5d56">'+esc(f.code)+' · '+esc(f.time)+'</span>'+(f.note?'<div class="note">→ '+esc(f.note)+'</div>':'')+'</div></div>';
+    });
+    h+='<div class="section"><h3>租车与自驾</h3><span>比亚迪海鸥 · 9.13–9.16</span></div>';
+    h+='<div class="line-item"><div class="ic">🚗</div><div><b>9.13 12:30 胶东机场送车</b><p>租期 3 天，车型比亚迪海鸥；先确认儿童安全座椅、还车时间与油量规则。</p></div></div>';
+    h+='<div class="line-item"><div class="ic">🛣</div><div><b>机场 → 石老人酒店</b><p>约 55 公里、55 分钟；这是全程最长一段，宝宝零食绘本放身边。</p></div></div>';
+    h+='<div class="line-item"><div class="ic">🌉</div><div><b>酒店 → 黄岛银沙滩</b><p>走胶州湾海底隧道约 30–40 公里、1 小时；隧道费往返参考 20 元，停车场有冲洗处。</p></div></div>';
+    h+='<div class="line-item"><div class="ic">🅿️</div><div><b>停车提示</b><p>奥帆中心搜“奥帆中心停车场”；小麦岛停车满可停银海大世界；银沙滩搜“银沙滩景区停车场”。</p></div></div>';
+    h+='<div class="section"><h3>赶海与潮汐</h3><span>石老人东侧礁石区</span></div>';
+    h+='<div class="card" style="background:#e9f6fa"><p style="font-size:12.3px;color:#2c5b6b">地点：石老人东侧礁石区，从酒店走过去约 5 分钟。<br>时间：用『潮汐表精灵』查最低潮，最低潮前后 2 小时内去最合适。<br>安全：穿防滑鞋，不走到没人的礁石深处；海水开始回涨立刻上岸。</p></div>';
+    h+='<div class="tipbox"><p>9 月仍是台风季末：出发前 3 天看台风与海上大风预警；帆船停航就改奥帆博物馆/酒店泳池。9 月海水约 23–25°C，宝宝下水时间别太长。</p></div>';
+    document.getElementById('view-出行').innerHTML=h;
+  }
+
+  /* ===== 清单 ===== */
+  function ckKey(g,i){ return 'thai-ck-'+g+'-'+i; }
+  function ckGet(k){ try{ return localStorage.getItem(k); }catch(e){ return null; } }
+  function ckSet(k,v){ try{ localStorage.setItem(k,v); }catch(e){} }
+  function ckClear(){ try{ localStorage.clear(); }catch(e){} }
+  function renderChecklist(){
+    var h='<div class="section"><h3>出发前待办</h3><span>完成一项勾一项，本机自动保存</span></div>';
+    (TRIP.reminders||[]).map(function(r){
+      var dt=new Date(TRIP.startDate+'T00:00:00Z'); dt.setUTCDate(dt.getUTCDate()-r.leadDays);
+      return {item:r.item, date:dt.toISOString().slice(0,10)};
+    }).sort(function(a,b){return a.date<b.date?-1:1;}).forEach(function(r){
+      h+='<div class="listitem"><div class="txt"><b>'+esc(r.item)+'</b></div><div class="deadline">'+r.date+' 前</div></div>';
+    });
+    h+='<div class="section"><h3>查漏补缺清单</h3><span id="ck-summary"></span></div>';
+    var total=0,done=0;
+    (TRIP.checklists||[]).forEach(function(g,gi){
+      var items=g.items||[]; var gdone=0;
+      items.forEach(function(it,ii){ if(ckGet(ckKey(gi,ii))==='1'){ gdone++; done++; } total++; });
+      h+='<div class="check-group"><h4>'+esc(g.icon||'✅')+' '+esc(g.name)+'<span class="cnt" id="ck-cnt-'+gi+'">'+gdone+'/'+items.length+'</span></h4><div class="bar"><i id="ck-bar-'+gi+'" style="width:'+(items.length?Math.round(gdone/items.length*100):0)+'%"></i></div>';
+      items.forEach(function(it,ii){
+        var on=ckGet(ckKey(gi,ii))==='1';
+        h+='<label class="chk-item'+(on?' done':'')+'"><input type="checkbox" data-g="'+gi+'" data-i="'+ii+'" '+(on?'checked':'')+'><span>'+esc(it)+'</span></label>';
+      });
+      h+='</div>';
+    });
+    h+='<button class="btn" id="ck-reset" style="width:100%">↺ 重置所有勾选</button>';
+    document.getElementById('view-清单').innerHTML=h;
+    document.getElementById('ck-summary').textContent=done+'/'+total+' 已准备';
+    document.querySelectorAll('#view-清单 input[type=checkbox]').forEach(function(cb){
+      cb.addEventListener('change', function(){
+        var gi=Number(cb.getAttribute('data-g')), ii=Number(cb.getAttribute('data-i'));
+        ckSet(ckKey(gi,ii), cb.checked?'1':'0');
+        renderChecklist();
+      });
+    });
+    document.getElementById('ck-reset').addEventListener('click', function(){
+      if(confirm('确定重置全部勾选状态吗？')){ ckClear(); renderChecklist(); }
+    });
+  }
+
+  /* ===== 页签切换 ===== */
+  function switchTab(name){
+    state.tab=name;
+    document.querySelectorAll('.tabbar button').forEach(function(x){ x.classList.remove('on'); });
+    document.querySelector('.tabbar button[data-tab="'+name+'"]').classList.add('on');
+    document.querySelectorAll('.panel').forEach(function(p){ p.classList.remove('on'); });
+    document.getElementById('view-'+name).classList.add('on');
+    if(name==='美食') renderFood();
+    if(name==='酒店') renderHotels();
+    if(name==='出行') renderTravel();
+    if(name==='清单') renderChecklist();
+    window.scrollTo(0,0);
+  }
+  document.querySelectorAll('[data-tab]').forEach(function(b){ b.addEventListener('click', function(){ switchTab(b.getAttribute('data-tab')); }); });
+  document.querySelectorAll('[data-goto]').forEach(function(b){ b.addEventListener('click', function(){ switchTab(b.getAttribute('data-goto')); }); });
+  document.getElementById('btn-copy').addEventListener('click', function(){
+    var txt=document.getElementById('sheet-addr').textContent;
+    function ok(){ var b=document.getElementById('btn-copy'); b.textContent='✓ 已复制'; setTimeout(function(){ b.textContent='📋 复制定位'; },1500); }
+    if(navigator.clipboard&&navigator.clipboard.writeText){ navigator.clipboard.writeText(txt).then(ok); }
+    else { var ta=document.createElement('textarea'); ta.value=txt; document.body.appendChild(ta); ta.select(); document.execCommand('copy'); document.body.removeChild(ta); ok(); }
+  });
+  document.querySelectorAll('.sheet').forEach(function(s){ s.addEventListener('click',function(e){ if(e.target===s) s.classList.remove('on'); }); });
+  document.getElementById('geo-btn').addEventListener('click', startGeo);
+  document.getElementById('geo-sort').addEventListener('click', function(){
+    geo.sort=!geo.sort;
+    this.textContent=geo.sort?'↕ 已按距离排序':'↕ 由近到远';
+    if(state.tab==='行程') renderDay(); else if(state.tab==='美食') renderFood(); else refreshDistances();
+  });
+
+  setDates();
+  renderDay();
+  renderFood();
+  renderHotels();
+  renderTravel();
+  renderChecklist();
+  try{ if(sessionStorage.getItem('trip-geo')==='1'){ startGeo(); } }catch(e){}
+  refreshDistances();
+})();
+</script>
+</body>
+</html>
