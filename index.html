@@ -6,7 +6,7 @@
 <meta name="theme-color" content="#0e7c9c">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-<title>泰国双城记 · 迷你版</title>
+<title>青岛海边亲子 · 4 天 3 晚</title>
 <style>
 :root{
   --bg:#f1f8fa; --card:#fff; --ink:#12333f; --dim:#5f7b86;
@@ -182,16 +182,16 @@ header{display:flex;align-items:center;justify-content:space-between;padding:6px
   <div class="box">
     <div class="handle"></div>
     <h3 id="sheet-title">导航到此</h3>
-    <p class="sub">选择地图 App 打开；打车请复制定位后粘贴到 Grab。</p>
+    <p class="sub">选择地图 App 打开；打车请复制定位后粘贴到高德/滴滴。</p>
     <div class="addr" id="sheet-addr"></div>
     <div class="row">
       <a class="btn primary" id="lnk-apple" target="_blank" rel="noopener">🍎 苹果地图</a>
       <a class="btn primary" id="lnk-google" target="_blank" rel="noopener">🧭 谷歌地图</a>
       <a class="btn primary" id="lnk-amap" target="_blank" rel="noopener">🗺 高德地图</a>
       <button class="btn gold" id="btn-copy">📋 复制定位</button>
-      <a class="btn" href="https://www.grab.com" target="_blank" rel="noopener" style="grid-column:1/-1">🚕 打开 Grab（官网）</a>
+      <a class="btn" href="https://www.amap.com" target="_blank" rel="noopener" style="grid-column:1/-1">🚕 打开高德地图（打车/导航）</a>
     </div>
-    <p class="mini-note">泰国打车通常用 Grab；复制定位后在 Grab 里粘贴地点即可叫车。</p>
+    <p class="mini-note">青岛打车用高德/滴滴/花小猪；复制定位后在打车 App 里粘贴地点即可叫车。</p>
   </div>
 </div>
 
@@ -354,7 +354,7 @@ header{display:flex;align-items:center;justify-content:space-between;padding:6px
           h+='<div class="actrow" style="margin-top:6px">'+
              '<a class="btn primary" target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&query='+q+'">🧭 导航</a>'+
              '<a class="btn" target="_blank" rel="noopener" href="https://maps.apple.com/?q='+q+'">🍎 苹果地图</a>'+
-             '<button class="btn gold" data-copyname="'+esc(o.name+' '+city)+'">🚕 复制给 Grab</button>'+
+             '<button class="btn gold" data-copyname="'+esc(o.name+' '+city)+'">🚕 复制给打车 App</button>'+
              '</div>';
           h+='</div>';
         });
@@ -402,7 +402,7 @@ header{display:flex;align-items:center;justify-content:space-between;padding:6px
     document.querySelectorAll('#view-美食 [data-copyname]').forEach(function(b){
       b.addEventListener('click', function(){
         var txt=b.getAttribute('data-copyname');
-        function ok(){ b.textContent='✓ 已复制'; setTimeout(function(){ b.textContent='🚕 复制给 Grab'; },1500); }
+        function ok(){ b.textContent='✓ 已复制'; setTimeout(function(){ b.textContent='🚕 复制给打车 App'; },1500); }
         if(navigator.clipboard&&navigator.clipboard.writeText){ navigator.clipboard.writeText(txt).then(ok); }
         else { var ta=document.createElement('textarea'); ta.value=txt; document.body.appendChild(ta); ta.select(); document.execCommand('copy'); document.body.removeChild(ta); ok(); }
       });
@@ -427,7 +427,7 @@ header{display:flex;align-items:center;justify-content:space-between;padding:6px
       h+='<div class="card"><div style="font-size:11px;color:#0b6b4c;font-weight:800">'+esc(ha.area)+'</div><p style="font-size:12.3px;color:#5b6c65;margin:5px 0 2px">'+esc(ha.reason)+'</p></div>';
       h += hotelActions(ha);
     });
-    h+='<div class="tipbox"><p>定位为酒店坐标参考：点“地图导航”会唤起苹果/谷歌/高德，打车前建议先在 Grab 里确认上车点名称。</p></div>';
+    h+='<div class="tipbox"><p>定位为酒店坐标参考：点“地图导航”会唤起高德/百度/苹果地图，打车前建议先在高德或滴滴里确认上车点名称。</p></div>';
     document.getElementById('view-酒店').innerHTML=h;
     bindNavCopy(document.getElementById('view-酒店'));
   }
